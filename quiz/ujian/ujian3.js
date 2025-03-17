@@ -4,34 +4,29 @@ fungsi ini akan me-return array 2 dimensi
 */
 function groupAnimals(animals) {
     let res = [];
-    let al = animals.map(animal => animal.toLowerCase());
-    al.sort();
+    let al = animals.map(animal => animal.toLowerCase()); // Biar seragam huruf kecil semua
+    al.sort(); // Urutkan biar kelompoknya sesuai alfabet
 
     for (let i = 0; i < al.length; i++) {
-        let inserted = false;
-
-        for (let j = 0; j < res.length; j++) {
-            if (res[j][0][0] === al[i][0]) {
-                res[j].push(al[i]);
-                inserted = true;
-                break;
-                /*
-                entah sir, saya gak tau biar bisa jadi 1 baris doang,
-                dan tak di kasih clue juga sama sir
-                */
-            }
-        }
-
-        if (!inserted) {
-            res.push([al[i]]);
+        if (res.length === 0 || res[res.length - 1][0][0] !== al[i][0]) {
+            res.push([al[i]]); // Buat kelompok baru kalau beda huruf awal
+        } else {
+            res[res.length - 1].push(al[i]); // Masukin ke kelompok yang sama
         }
     }
-    return res;
+
+
+    return (res.sort ((a, b)) == a[0][0] .localCompare(b[0][0]));
 }
 
+// TEST CASES
+console.log(groupAnimals(['cacing', 'ayam', 'kuda', 'anoa', 'kancil']));
+// [ ['ayam', 'anoa'], ['cacing'], ['kuda', 'kancil'] ]
 
-  // TEST CASES
-  console.log(groupAnimals(['cacing', 'ayam', 'kuda', 'anoa', 'kancil']));
-  // [ ['ayam', 'anoa'], ['cacing'], ['kuda', 'kancil'] ]
-  console.log(groupAnimals(['cacing', 'ayam', 'kuda', 'anoa', 'kancil', 'unta', 'cicak' ]));
-  // [ ['ayam', 'anoa'], ['cacing', 'cicak'], ['kuda', 'kancil'], ['unta'] ]
+console.log(groupAnimals(['cacing', 'ayam', 'kuda', 'anoa', 'kancil', 'unta', 'cicak']));
+// [ ['ayam', 'anoa'], ['cacing', 'cicak'], ['kuda', 'kancil'], ['unta'] ]
+
+
+// TEST CASES
+console.log(groupAnimals(['cacing', 'ayam', 'kuda', 'anoa', 'kancil']));
+console.log(groupAnimals(['cacing', 'ayam', 'kuda', 'anoa', 'kancil', 'unta', 'cicak']));
